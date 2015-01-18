@@ -11,6 +11,7 @@ using System.IO;
 using HtmlAgilityPack;
 using System.Threading;
 using System.Diagnostics;
+//using System.Windows.Shell;
 
 namespace ToonCrapper
 {
@@ -21,7 +22,7 @@ namespace ToonCrapper
         public int ComicID;
         public CookieContainer Cookie;
         public string TitleName;
-        private string toonURL = "http://comic.naver.com/webtoon/detail.nhn?titleId=";
+        public string toonURL;
         private string SelectedDir;
         private string DownloadArg;
 
@@ -33,10 +34,12 @@ namespace ToonCrapper
         private HtmlAgilityPack.HtmlDocument doc;
 
         BackgroundWorker backgroundWorker1;
+        //TaskbarItemInfo taskbar = new TaskbarItemInfo();
 
         public Toon_DownloadProgress()
         {
             InitializeComponent();
+            //taskbar.ProgressState = TaskbarItemProgressState.Normal;
         }
 
         internal void StartDownload()
@@ -63,46 +66,7 @@ namespace ToonCrapper
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
             backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.RunWorkerAsync();
-            /**
-                        for (int i = StartID; i <= LastID; i++) 
-                        {
-
-                            request = (HttpWebRequest)WebRequest.Create(this.toonURL + ComicID + "&no=" + i);
-                            request.Proxy = null;
-                            request.CookieContainer = Cookie;
-                            request.Credentials = CredentialCache.DefaultCredentials;
-                            response = (HttpWebResponse)request.GetResponse();
-                            dataStream = response.GetResponseStream();
-
-                            doc = new HtmlAgilityPack.HtmlDocument();
-                            doc.Load(dataStream, Encoding.UTF8);
-
-                            var ImageInfo = doc.DocumentNode.SelectNodes("/html/body/div/div[5]/div/div[2]/div[3]/div[1]/img");
-
-                            if (ImageInfo == null)
-                            {
-                                MessageBox.Show("다음화로 넘어갑니다.", "회차 오류");
-
-                            }
-                            else
-                            {
-
-                                int count = 0;
-                                DownloadArg = null;
-                                foreach (HtmlNode ImageURL in ImageInfo)
-                                {
-                                    count++;
-                                    String DownloadURL = ImageURL.Attributes["src"].Value;
-                                    String SaveDir = SelectedDir + "\\" + TitleName + "\\" + i + "\\" + count + ".jpg";
-                                    DownloadArg = DownloadArg + "\"" + DownloadURL + "\" -o \"" + SaveDir + "\" ";
-                                }
-                                backgroundWorker1.RunWorkerAsync();
-                            }
-  
-                            this.label1.Text = i.ToString();
-                            progressBar1.PerformStep();
-                        }
-             * **/
+            
         }
 
         private void Toon_DownloadProgress_Load(object sender, EventArgs e)
@@ -135,10 +99,11 @@ namespace ToonCrapper
                 doc.Load(dataStream, Encoding.UTF8);
 
                 var ImageInfo = doc.DocumentNode.SelectNodes("/html/body/div/div[5]/div/div[2]/div[3]/div[1]/img");
+                if (ImageInfo == null) { ImageInfo = doc.DocumentNode.SelectNodes("/html/body/div/div[5]/div/div[3]/div[3]/div[1]/img"); };
 
                 if (ImageInfo == null)
                 {
-
+                    
                 }
                 else
                 {
@@ -198,6 +163,7 @@ namespace ToonCrapper
                 Process.Start("explorer.exe", SelectedDir);
             }
 
+            //taskbar.ProgressState = TaskbarItemProgressState.None;
             this.Dispose();
         }
 
@@ -205,6 +171,7 @@ namespace ToonCrapper
         {
             this.label1.Text = i.ToString();
             progressBar1.PerformStep();
+            //taskbar.ProgressValue = progressBar1.Value / (double)progressBar1.Maximum; ;
         }
 
     }

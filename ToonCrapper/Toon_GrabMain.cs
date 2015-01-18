@@ -21,8 +21,10 @@ namespace ToonCrapper
         private Stream dataStream;
         private HtmlAgilityPack.HtmlDocument doc;
 
-        private String SearchURL = "http://comic.naver.com/search.nhn?m=webtoon&type=title&page=1&keyword=";
-        private String titleURL = "http://comic.naver.com/webtoon/list.nhn?titleId=";
+        private String SearchURL;
+        private String titleURL;
+        private String replaceChar;
+        private String toonURL;
         Toon_TitleSelect TitleSelector;
         Toon_DownloadProgress Downloader;
         Toon_Login Login;
@@ -33,6 +35,7 @@ namespace ToonCrapper
         public Toon_GrabMain()
         {
             InitializeComponent();
+            comboBox1.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,7 +74,7 @@ namespace ToonCrapper
                 foreach (HtmlNode title in nodes)
                 {
 
-                    String titleid = title.SelectSingleNode(".//a").Attributes["href"].Value.Replace("/webtoon/list.nhn?titleId=", "");
+                    String titleid = title.SelectSingleNode(".//a").Attributes["href"].Value.Replace(replaceChar,"");
                     String titleName = Regex.Replace(title.SelectSingleNode(".//a").OuterHtml, "<[^>]*>", "");
                     
                     ListViewItem lvi = new ListViewItem(titleid);
@@ -82,6 +85,16 @@ namespace ToonCrapper
                     {
                         lvi.SubItems.Add("Y");
                     }else{
+                        lvi.SubItems.Add("N");
+                    }
+
+                    HtmlNode isStore = title.SelectSingleNode(".//span[contains(@class, 'ico_store')]");
+                    if (isStore != null)
+                    {
+                        lvi.SubItems.Add("Y");
+                    }
+                    else
+                    {
                         lvi.SubItems.Add("N");
                     }
 
@@ -155,6 +168,7 @@ namespace ToonCrapper
             Downloader = new Toon_DownloadProgress();
             Downloader.label1.Text = "0";
             Downloader.label3.Text = lastID;
+            Downloader.toonURL = this.toonURL;
             Downloader.StartID = int.Parse(startID);
             Downloader.LastID = int.Parse(lastID);
             Downloader.ComicID = int.Parse(titleid);
@@ -189,6 +203,33 @@ namespace ToonCrapper
         {
             AboutBox About = new AboutBox();
             About.ShowDialog();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    SearchURL = "http://comic.naver.com/search.nhn?m=webtoon&type=title&page=1&keyword=";
+                    titleURL = "http://comic.naver.com/webtoon/list.nhn?titleId=";
+                    replaceChar = "/webtoon/list.nhn?titleId=";
+                    toonURL = "http://comic.naver.com/webtoon/detail.nhn?titleId=";
+                    break;
+
+                case 1:
+                    SearchURL = "http://comic.naver.com/search.nhn?m=bestChallenge&type=title&page=1&keyword=";
+                    titleURL = "http://comic.naver.com/bestChallenge/list.nhn?titleId=";
+                    replaceChar = "/bestChallenge/list.nhn?titleId=";
+                    toonURL = "http://comic.naver.com/bestChallenge/detail.nhn?titleId=";
+                    break;
+
+                default:
+                    SearchURL = "http://comic.naver.com/search.nhn?m=webtoon&type=title&page=1&keyword=";
+                    titleURL = "http://comic.naver.com/webtoon/list.nhn?titleId=";
+                    replaceChar = "/webtoon/list.nhn?titleId=";
+                    toonURL = "http://comic.naver.com/webtoon/detail.nhn?titleId=";
+                    break;
+            }
         }
     }
 }

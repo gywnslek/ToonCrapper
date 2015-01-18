@@ -34,6 +34,7 @@
             this.artist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.isRestricted = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
+            this.isStore = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
@@ -42,12 +43,13 @@
             this.titleno,
             this.titlename,
             this.artist,
-            this.isRestricted});
+            this.isRestricted,
+            this.isStore});
             this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(12, 12);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(399, 204);
+            this.listView1.Size = new System.Drawing.Size(465, 204);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -76,18 +78,23 @@
             // 
             this.button1.Location = new System.Drawing.Point(12, 222);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(399, 39);
+            this.button1.Size = new System.Drawing.Size(465, 39);
             this.button1.TabIndex = 1;
             this.button1.Text = "해당 작품 선택";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // isStore
+            // 
+            this.isStore.Text = "스토어";
+            this.isStore.Width = 66;
             // 
             // Toon_TitleSelect
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 268);
+            this.ClientSize = new System.Drawing.Size(489, 268);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -108,5 +115,6 @@
         private System.Windows.Forms.ColumnHeader titlename;
         private System.Windows.Forms.ColumnHeader artist;
         private System.Windows.Forms.ColumnHeader isRestricted;
+        private System.Windows.Forms.ColumnHeader isStore;
     }
 }
