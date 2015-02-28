@@ -121,7 +121,7 @@ namespace ToonCrapper
                     Process cURL = new Process();
 
                     cURL.StartInfo.FileName = "curl.exe";
-                    cURL.StartInfo.Arguments = "--create-dirs --referer 'http://comic.naver.com' " + DownloadArg;
+                    cURL.StartInfo.Arguments = "--create-dirs --referer \"http://comic.naver.com\" " + DownloadArg;
                     cURL.StartInfo.UseShellExecute = false;
                     cURL.StartInfo.CreateNoWindow = true;
                     cURL.Start();
