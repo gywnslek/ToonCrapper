@@ -1,12 +1,16 @@
 # Naver Webtoon Scrapper with .NET
+[![Build Status](https://travis-ci.org/RapidWorkers/ToonCrapper.svg?branch=master)](https://travis-ci.org/RapidWorkers/ToonCrapper)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RapidWorkers/ToonCrapper/blob/master/LICENSE)
 [![Language](https://img.shields.io/badge/Language-C%23-orange.svg)](http://en.wikipedia.org/wiki/C_Sharp_(programming_language))
 [![Latest release](http://img.shields.io/github/release/RapidWorkers/ToonCrapper.svg)](https://github.com/RapidWorkers/ToonCrapper/releases)
+
 
 ##Introduction
 이 프로그램은 웹툰을 긁어오는 프로그램입니다.<br>
 이 프로그램을 사용하여 이북을 만든다면 모바일 데이터를 절약할 수 있겠죠?<br>
 이 프로그램은 오픈 소스로 누구나 개선이나 수정 배포가 가능합니다.<br>
+현재 이 프로그램은 Microsoft .NET Framework 2.0 이상의 환경에서만 빌드가 가능합니다.<br>
+모노 프레임워크는 잠시만 기다려 주세요.
 
 ##DISCLAIMER
 이 프로그램을 불법적으로 사용시에 제작자(저작권자)는 책임을 지지 않습니다.<br>
