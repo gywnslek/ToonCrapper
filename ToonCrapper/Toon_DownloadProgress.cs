@@ -98,7 +98,7 @@ namespace ToonCrapper
                 doc = new HtmlAgilityPack.HtmlDocument();
                 doc.Load(dataStream, Encoding.UTF8);
 
-                var ImageInfo = doc.DocumentNode.SelectNodes("/html/body/div/div[3]/div/div/div[3]/div[1]/img");
+                var ImageInfo = doc.DocumentNode.SelectNodes("//*[@id="comic_view_area"]/div[1]/img");
                 if (ImageInfo == null) { ImageInfo = doc.DocumentNode.SelectNodes("/html/body/div/div[3]/div/div[2]/div[3]/div[1]/img"); };
 
                 if (ImageInfo == null)
